@@ -1,3 +1,8 @@
+package Logica;
+
+
+import Dominio.Skin;
+
 
 public class ListaSkins {
     private Skin [] listaSkins;

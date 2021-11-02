@@ -1,3 +1,9 @@
+package Dominio;
+
+import Logica.ListaPersonajes;
+import Logica.ListaCuentas;
+import Logica.ListaSkins;
+
 
 public class Cuenta {
     private String nombreCuenta;

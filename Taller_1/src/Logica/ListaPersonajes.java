@@ -1,3 +1,7 @@
+package Logica;
+
+import Dominio.Personaje;
+
 
 public class ListaPersonajes {
     private Personaje [] listaPersonajes;

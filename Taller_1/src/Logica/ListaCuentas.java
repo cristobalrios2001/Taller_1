@@ -1,3 +1,8 @@
+package Logica;
+
+
+import Dominio.Cuenta;
+
 
 public class ListaCuentas {
     private Cuenta [] listaCuentas;

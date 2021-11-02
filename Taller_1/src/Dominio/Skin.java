@@ -1,3 +1,5 @@
+package Dominio;
+
 
 public class Skin {
     private String nombreSkin;

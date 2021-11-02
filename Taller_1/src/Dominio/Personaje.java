@@ -1,3 +1,8 @@
+package Dominio;
+
+
+import Logica.ListaSkins;
+
 
 public class Personaje {
     private String nombrePersonaje;
