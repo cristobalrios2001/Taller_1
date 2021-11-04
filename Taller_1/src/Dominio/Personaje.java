@@ -16,6 +16,35 @@ public class Personaje {
         listaSkins = new ListaSkins (250);
         
     }
+
+    public String getNombrePersonaje() {
+        return nombrePersonaje;
+    }
+
+    public void setNombrePersonaje(String nombrePersonaje) {
+        this.nombrePersonaje = nombrePersonaje;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+
+    public int getRecaudacion() {
+        return recaudacion;
+    }
+
+    public void setRecaudacion(int recaudacion) {
+        this.recaudacion = recaudacion;
+    }
+
+    public ListaSkins getListaSkins() {
+        return listaSkins;
+    }
+    
     
     
     

@@ -13,4 +13,33 @@ public class ListaPersonajes {
         this.max = max;
         listaPersonajes = new Personaje[max];
     }
+    
+    public boolean ingresarPersonaje(Personaje personaje)
+    {
+        if(cantPersonajes<max){
+            listaPersonajes[cantPersonajes] = personaje;
+            cantPersonajes++;
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+    public Personaje buscarPersonaje (String nombrePersonaje)
+    {
+        int i;
+        for (i = 0; i < cantPersonajes; i++) {
+            if(listaPersonajes[i].getNombrePersonaje().equals(nombrePersonaje)){
+                break;
+            }
+        }
+        
+        if(i==cantPersonajes){
+            return null;
+        }else{
+            return listaPersonajes[i];
+        }
+    }
+    
+    
 }

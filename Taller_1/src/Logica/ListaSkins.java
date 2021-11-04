@@ -14,6 +14,30 @@ public class ListaSkins {
         this.max = max;
         listaSkins = new Skin[max];
     }
+    public boolean ingresarSkin(Skin skin){
+        if(cantSkins<max){
+            listaSkins[cantSkins] = skin;
+            cantSkins++;
+            return true;
+        }else{
+            return false;
+        }
+    }
     
+    public Skin buscarSkin (String nombreSkin)
+    {
+        int i;
+        for (i = 0; i < cantSkins; i++) {
+            if(listaSkins[i].getNombreSkin().equals(nombreSkin)){
+                break;
+            }
+        }
+        
+        if(i==cantSkins){
+            return null;
+        }else{
+            return listaSkins[i];
+        }
+    }
     
 }

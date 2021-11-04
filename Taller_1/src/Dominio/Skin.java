@@ -9,6 +9,22 @@ public class Skin {
         this.nombreSkin = nombreSkin;
         this.calidad = calidad;
     }
+
+    public String getNombreSkin() {
+        return nombreSkin;
+    }
+
+    public void setNombreSkin(String nombreSkin) {
+        this.nombreSkin = nombreSkin;
+    }
+
+    public String getCalidad() {
+        return calidad;
+    }
+
+    public void setCalidad(String calidad) {
+        this.calidad = calidad;
+    }
     
     
 }

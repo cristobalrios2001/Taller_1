@@ -21,7 +21,7 @@ public interface SistemaSkinShop {
     
     public boolean agregarCuenta(String nombreCuenta, String contraseña, String nick,int nivel, int rp, String region);
     
-    public void asociarPersonajeCuenta(Cuenta cuenta, Personaje personaje);
+    public void asociarPersonajeCuenta(String nickCuenta, String nombrePersonaje);
     
     public void agregarSkinACuenta(String nombreSkin, String nombreCuenta);
     
