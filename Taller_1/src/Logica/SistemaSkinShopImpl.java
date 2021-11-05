@@ -97,29 +97,118 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
     
     }
     
-    public  desplegarInventario (String nombreCuenta)
+    public String desplegarInventario (String nombreCuenta)
     {
-    
+        String salida = "";
+        Cuenta cuenta = listaCuentas.buscarCuenta(nombreCuenta);
+        ListaPersonajes  lp = cuenta.getListaPersojanes();
+        for (int i = 0; i < lp.getCantPersonajes(); i++) {
+            salida = "\nLos personajes de la cuenta son: \n";
+            Personaje personaje = lp.getPersonajeI(i);
+            salida = salida + personaje.getNombrePersonaje();
+            ListaSkins ls = personaje.getListaSkins();
+            
+            for (int j = 0; j < ls.getCantSkins(); j++) {
+                Skin skin = listaSkins.getSkinI(i);
+                salida = salida + "\nTienen las siguientes skins: ";
+                salida = salida + "\n\tNombre Skin: "+skin.getNombreSkin();
+            }
+            salida = salida + "\n";
+        }
+        return salida;
     }
     
-    public  recargarSaldo(String nombreCuenta)
+    @Override
+    public void recargarSaldo(String nombreCuenta, int newSaldoRp)
     {
-    
+        Cuenta cuenta = listaCuentas.buscarCuenta(nombreCuenta);
+        if(cuenta != null)
+        {
+            int saldoActual = cuenta.getCantRP();
+            cuenta.setCantRP(newSaldoRp+saldoActual);
+        }else
+        {
+            throw new NullPointerException("Cuenta no existe");
+        }
+        
+        
     }
     
-    public  mostrarDatos(String nombreCuenta)
+    public String mostrarDatos(String nombreCuenta)
     {
-    
+        String salida ="";
+        Cuenta cuenta = listaCuentas.buscarCuenta(nombreCuenta);
+        salida = salida + "Nombre: "+cuenta.getNombreCuenta();
+        salida = salida +"\nNick: "+cuenta.getNick();
+        
+        String [] partes = cuenta.getContraseña().split("");
+        salida = salida + "\nContraseña: ";
+        for (int i = 0; i < partes.length; i++) {
+            if(i<partes.length-3){
+               salida = salida + "*";
+            }else{
+                salida = salida + partes[i];
+            }
+        }
+        
+        return salida;
+        
     }
     
-    public  cambiarContraseña(String contraseñaAntigua1, String contraseñaAntigua2, String nuevaContraseña)
+    @Override
+    public void cambiarContraseña(String nombreCuenta, String contraseñaAntigua1, String contraseñaAntigua2, String nuevaContraseña)
     {
-    
+        Cuenta cuenta = listaCuentas.buscarCuenta(nombreCuenta);
+        String oldPass = cuenta.getContraseña();
+        
+        if(contraseñaAntigua1.equals(oldPass) && contraseñaAntigua2.equals(oldPass)){
+            cuenta.setContraseña(nuevaContraseña);
+        }else{
+            
+        }
     }
     
-    public  recaudacionPorRol ()
+    public String recaudacionPorRol ()
     {
-    
+        String salida = "";
+        int sup = 0;
+        int adc = 0;
+        int top = 0;
+        int mid = 0;
+        int jg = 0;
+        
+        for (int i = 0; i < listaPersonajes.getCantPersonajes(); i++) {
+            Personaje personaje = listaPersonajes.getPersonajeI(i);
+            String rol =personaje.getRol();
+            
+            switch (rol) {
+                case "SUP":
+                    sup += personaje.getRecaudacion();
+                    break;
+                case "ADC":
+                    adc += personaje.getRecaudacion();
+                    break;
+                case "TOP":
+                    top += personaje.getRecaudacion();
+                    break;
+                case "MID":
+                    mid += personaje.getRecaudacion();
+                    break;
+                case "JG":
+                    jg += personaje.getRecaudacion();
+                    break;
+                default:
+                    break;
+            }
+        }
+        
+        salida = salida + "Recaudaciones: ";
+        salida = salida + "\n\tSupport: " + sup;
+        salida = salida + "\n\tAtack Damage Carry: " + adc;
+        salida = salida + "\n\tTop Laner: " + top;
+        salida = salida + "\n\tMiddle Laner: "+ mid;
+        salida = salida + "\n\tJungler: "+jg;
+        return salida;
     }
     
     public  recaudacionPorRegion ()

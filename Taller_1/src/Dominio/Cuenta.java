@@ -63,6 +63,10 @@ public class Cuenta {
     public void setRegion(String region) {
         this.region = region;
     }
+
+    public int getCantRP() {
+        return cantRP;
+    }
     
     
     

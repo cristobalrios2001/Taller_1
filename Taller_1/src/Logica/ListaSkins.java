@@ -39,5 +39,29 @@ public class ListaSkins {
             return listaSkins[i];
         }
     }
+
+    public int getCantSkins() {
+        return cantSkins;
+    }
+
+    public void setCantSkins(int cantSkins) {
+        this.cantSkins = cantSkins;
+    }
+
+    public int getMax() {
+        return max;
+    }
+
+    public void setMax(int max) {
+        this.max = max;
+    }
+    
+    public Skin getSkinI(int i){
+        if(i>=0 && i< cantSkins){
+            return listaSkins[i];
+        }else{
+            return null;
+        }
+    }
     
 }

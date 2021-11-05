@@ -35,11 +35,11 @@ public interface SistemaSkinShop {
     
     public String desplegarInventario (String nombreCuenta);
     
-    public boolean recargarSaldo(String nombreCuenta);
+    public void recargarSaldo(String nombreCuenta, int newSaldo);
     
     public String mostrarDatos(String nombreCuenta);
     
-    public void cambiarContraseña(String contraseñaAntigua1, String contraseñaAntigua2, String nuevaContraseña);
+    public void cambiarContraseña(String nombreCuenta, String contraseñaAntigua1, String contraseñaAntigua2, String nuevaContraseña);
     
     public String recaudacionPorRol ();
     

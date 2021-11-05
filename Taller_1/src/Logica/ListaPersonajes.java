@@ -40,6 +40,28 @@ public class ListaPersonajes {
             return listaPersonajes[i];
         }
     }
+
+    public int getCantPersonajes() {
+        return cantPersonajes;
+    }
+
+    public void setCantPersonajes(int cantPersonajes) {
+        this.cantPersonajes = cantPersonajes;
+    }
+
+    public int getMax() {
+        return max;
+    }
+
+    public void setMax(int max) {
+        this.max = max;
+    }
     
-    
+    public Personaje getPersonajeI(int i){
+        if(i>=0 && i< cantPersonajes){
+            return listaPersonajes[i];
+        }else{
+            return null;
+        }
+    }
 }
