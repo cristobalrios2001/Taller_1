@@ -40,4 +40,16 @@ public class ListaCuentas {
             return listaCuentas[i];
         }
     }
+
+    public int getCantCuentas() {
+        return cantCuentas;
+    }
+    
+    public Cuenta getCuentaI(int i){
+        if(i>= 0 && i<cantCuentas){
+            return listaCuentas[i];
+        }else{
+            return null;
+        }
+    }
 }

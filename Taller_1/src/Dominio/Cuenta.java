@@ -12,6 +12,7 @@ public class Cuenta {
     private int nivelCuenta;
     private int cantRP;
     private String region;
+    private int recaudacionCta; //nueva variable
     private ListaSkins listaSkins;
     private ListaPersonajes listaPersonajes;
     private ListaCuentas listaCuentas;
@@ -23,6 +24,7 @@ public class Cuenta {
         this.nivelCuenta = nivelCuenta;
         this.cantRP = cantRP;
         this.region = region;
+        this.recaudacionCta = recaudacionCta;
         listaCuentas = new ListaCuentas(250);
         listaPersonajes = new ListaPersonajes(155);
         listaSkins = new ListaSkins(250);
@@ -66,6 +68,14 @@ public class Cuenta {
 
     public int getCantRP() {
         return cantRP;
+    }
+
+    public int getRecaudacionCta() {
+        return recaudacionCta;
+    }
+
+    public void setRecaudacionCta(int recaudacionCta) {
+        this.recaudacionCta = recaudacionCta;
     }
     
     

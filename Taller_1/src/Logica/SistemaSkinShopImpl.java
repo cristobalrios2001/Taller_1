@@ -202,7 +202,7 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
             }
         }
         
-        salida = salida + "Recaudaciones: ";
+        salida = salida + "Recaudaciones por Rol: ";
         salida = salida + "\n\tSupport: " + sup;
         salida = salida + "\n\tAtack Damage Carry: " + adc;
         salida = salida + "\n\tTop Laner: " + top;
@@ -211,33 +211,82 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
         return salida;
     }
     
-    public  recaudacionPorRegion ()
+    @Override
+    public String recaudacionPorRegion ()
+    {
+        String salida = "";
+        int las = 0;
+        int lan = 0;
+        int euw = 0;
+        int kr = 0;
+        int na = 0;
+        int ru = 0;
+        
+        for (int i = 0; i < listaCuentas.getCantCuentas(); i++) {
+            Cuenta cuenta = listaCuentas.getCuentaI(i);
+            String region = cuenta.getRegion();
+            
+            switch (region) {
+                case "LAS":
+                    las += cuenta.getRecaudacionCta();
+                    break;
+                case "LAN":
+                    lan += cuenta.getRecaudacionCta();
+                    break;
+                case "EUW":
+                    euw += cuenta.getRecaudacionCta();
+                    break;
+                case "KR":
+                    kr += cuenta.getRecaudacionCta();
+                    break;
+                case "NA":
+                    na += cuenta.getRecaudacionCta();
+                    break;
+                case "RU":
+                    ru += cuenta.getRecaudacionCta();
+                    break;
+                default:
+                    break;
+            }
+        }
+        
+        salida = salida + "Recaudaciones por region: ";
+        salida = salida + "\n\tLAS: " + las;
+        salida = salida + "\n\tLAN: " + lan;
+        salida = salida + "\n\tEUW: " + euw;
+        salida = salida + "\n\tKR: "+ kr;
+        salida = salida + "\n\tNA: "+ na;
+        salida = salida + "\n\tRU: "+ru;
+        return salida;
+    }
+    
+    @Override
+    public String recaudacionPorPersonaje()
+    {
+        String salida = "";
+        for (int i = 0; i < listaPersonajes.getCantPersonajes(); i++) {
+            Personaje personaje = listaPersonajes.getPersonajeI(i);
+            salida = salida + "Nombre personaje: " + personaje.getNombrePersonaje()+"\n";
+            salida = salida + "Recaudacion: "+ personaje.getRecaudacion();
+        }
+        return salida;
+    }
+    
+    public boolean bloquearCuenta(String nick)
     {
     
     }
     
-    public  recaudacionPorPersonaje()
+    public String desplegarCuentasNivel()
     {
     
     }
     
-    public  bloquearCuenta(String nick)
-    {
-    
-    }
-    
-    public  desplegarCuentasNivel()
-    {
-    
-    }
-    
-    public  ingresarPersonajesAdmin(String nombrePersonaje, String rol)
+    public boolean ingresarPersonajesAdmin(String nombrePersonaje, String rol)
     {
     
     }
 
     
-    public void asociarPersonajeCuenta(Cuenta cuenta, Personaje personaje) {
-        
-    }
+    
 }
