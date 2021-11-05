@@ -77,6 +77,14 @@ public class Cuenta {
     public void setRecaudacionCta(int recaudacionCta) {
         this.recaudacionCta = recaudacionCta;
     }
+
+    public int getNivelCuenta() {
+        return nivelCuenta;
+    }
+
+    public void setNivelCuenta(int nivelCuenta) {
+        this.nivelCuenta = nivelCuenta;
+    }
     
     
     

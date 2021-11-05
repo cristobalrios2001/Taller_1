@@ -12,7 +12,13 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
     private ListaPersonajes listaPersonajes;
     private ListaSkins listaSkins;
     
-   
+    public SistemaSkinShopImpl(){
+        listaCuentas = new ListaCuentas(1000);
+        listaPersonajes = new ListaPersonajes(650);
+        listaSkins = new ListaSkins(500);
+    }
+    
+    
     @Override
     public boolean agregarPersonaje(String nombre, String rol)
     {
@@ -36,7 +42,7 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
         Skin skin = listaSkins.buscarSkin(nombreSkin);
         Personaje personaje = listaPersonajes.buscarPersonaje(nombrePersonaje);
         
-        if(skin != null && personaje != null){
+        if(skin != null || personaje != null){
             boolean ingreso = personaje.getListaSkins().ingresarSkin(skin);
         }else{
             throw new NullPointerException("No existe personaje y/o skin");
@@ -56,7 +62,7 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
         Cuenta cuenta = listaCuentas.buscarCuenta(nickCuenta);
         Personaje personaje = listaPersonajes.buscarPersonaje(nombrePersonaje);
         
-        if(cuenta != null && personaje != null)
+        if(cuenta != null || personaje != null)
         {
             boolean ingreso = cuenta.getListaPersojanes().ingresarPersonaje(personaje);
         }else{
@@ -94,7 +100,7 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
     
     public  mostrarSkinsDisponibles(String nombreCuenta)
     {
-    
+        Cuenta cuenta = listaCuentas.buscarCuenta(nombreCuenta);
     }
     
     public String desplegarInventario (String nombreCuenta)
@@ -274,12 +280,40 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
     
     public boolean bloquearCuenta(String nick)
     {
-    
+        
     }
     
     public String desplegarCuentasNivel()
     {
-    
+        String salida = "";
+        String [] cuentaNombre = new String[1000];
+        int [] cuentaNivel = new int [1000];
+        int cantCuentas = 0;
+        for (int i = 0; i < listaCuentas.getCantCuentas(); i++) {
+            cuentaNombre[cantCuentas] = listaCuentas.getCuentaI(i).getNombreCuenta();
+            cuentaNivel[cantCuentas] = listaCuentas.getCuentaI(i).getNivelCuenta();
+            cantCuentas++;
+        }
+        
+        for(int i = 0; i <=cantCuentas -2; i++){
+            for( int j = cantCuentas -1; j >= i+1; j--) {
+                if (cuentaNivel[j] > cuentaNivel[j - 1]) {
+                    int AUX = cuentaNivel[j];
+                    cuentaNivel[j] = cuentaNivel[j - 1];
+                    cuentaNivel[j - 1] = AUX;
+                    
+                    String AUXs = cuentaNombre[j];
+                    cuentaNombre[j] = cuentaNombre[j - 1];
+                    cuentaNombre[j - 1] = AUXs;
+                }
+            }
+        }
+ 
+        for (int i = 0; i < cantCuentas; i++) {
+            salida = salida + cuentaNombre[cantCuentas]+" "+cuentaNivel[cantCuentas];
+        }
+        
+        return salida;
     }
     
     public boolean ingresarPersonajesAdmin(String nombrePersonaje, String rol)
