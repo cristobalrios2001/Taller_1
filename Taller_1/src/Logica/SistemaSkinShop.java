@@ -57,4 +57,6 @@ public interface SistemaSkinShop {
     public boolean asociarEstadistica(String nombrePersonje, double recaudacion); // contrato nuevo para archivo recaudacion
     
     public boolean iniciarSesionComprobar(String nombreCuenta, String contraseña);
+    
+    //public void menuAdmin(); //
 }

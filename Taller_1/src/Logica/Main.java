@@ -27,7 +27,7 @@ public class Main {
         String contraseña = sn.next();
         
         boolean estadoInicio = sistema.iniciarSesionComprobar(nombreCuenta, contraseña);
-        
+        return estadoInicio;
 }
     
     public static void sistema (SistemaSkinShop sistema){
@@ -47,6 +47,7 @@ public class Main {
                         String nombreCuenta = sn.next();
                         
                         System.out.println("Ingresar Contraseña: ");
+                        String contraseña=sn.nextLine();
                         sistema.iniciarSesionComprobar(nombreCuenta, contraseña);
                         break;
                     
@@ -122,6 +123,43 @@ public class Main {
         }
         while (!salir) ;
     }
+    /*
+     * public static void menuAdmin()
+    {   Scanner sc = new Scanner(System.in);
+        recaudacionRol();
+        recaudacionPorRegion();
+        recaudacionPorPersonaje();
+        cantidadDePersonajesPorRol();
+        int opcion;
+        do{
+            System.out.println("1. Agregar personaje.");
+            System.out.println("2. Agregar Skin.");
+            System.out.println("3. Bloquear un jugador.");
+            try
+            {
+                System.out.print("Escribe una de las opciones: ");
+                opcion = sc.nextInt();
+                switch (opcion){
+                    case 1:
+                        System.out.println("\nHas seleccionado la opción 1:  Agregar personaje.");
+                            
+                    case 2:
+                        System.out.println("\nHas seleccionado la opción 2:  Agregar Skin.");
+                        
+                    case 3:
+                        System.out.println("\nHas seleccionado la opción 3:  Bloquear un Jugador.");
+                        
+                    default:
+                        System.out.println("\nSolo números entre 1 y 3");
+               }    
     
-    
+            }catch(InputMismatchException e){
+                System.out.println("Debes insertar un número");
+                sc.next();
+            }
+        }
+        while(!salir);
+    }
+    */
+
 }
