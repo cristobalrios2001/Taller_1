@@ -255,11 +255,11 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
     public String recaudacionPorRol ()
     {
         String salida = "";
-        int sup = 0;
-        int adc = 0;
-        int top = 0;
-        int mid = 0;
-        int jg = 0;
+        double sup = 0;
+        double adc = 0;
+        double top = 0;
+        double mid = 0;
+        double jg = 0;
         
         for (int i = 0; i < listaPersonajes.getCantPersonajes(); i++) {
             Personaje personaje = listaPersonajes.getPersonajeI(i);
@@ -287,11 +287,11 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
         }
         
         salida = salida + "Recaudaciones por Rol: ";
-        salida = salida + "\n\tSupport: " + sup;
-        salida = salida + "\n\tAtack Damage Carry: " + adc;
-        salida = salida + "\n\tTop Laner: " + top;
-        salida = salida + "\n\tMiddle Laner: "+ mid;
-        salida = salida + "\n\tJungler: "+jg;
+        salida = salida + "\n\tSupport: " + sup*6.15;
+        salida = salida + "\n\tAtack Damage Carry: " + adc*6.15;
+        salida = salida + "\n\tTop Laner: " + top*6.15;
+        salida = salida + "\n\tMiddle Laner: "+ mid*6.15;
+        salida = salida + "\n\tJungler: "+jg*6.15;
         return salida;
     }
     
@@ -299,12 +299,12 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
     public String recaudacionPorRegion ()
     {
         String salida = "";
-        int las = 0;
-        int lan = 0;
-        int euw = 0;
-        int kr = 0;
-        int na = 0;
-        int ru = 0;
+        double las = 0;
+        double lan = 0;
+        double euw = 0;
+        double kr = 0;
+        double na = 0;
+        double ru = 0;
         
         for (int i = 0; i < listaCuentas.getCantCuentas(); i++) {
             Cuenta cuenta = listaCuentas.getCuentaI(i);
@@ -335,12 +335,12 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
         }
         
         salida = salida + "Recaudaciones por region: ";
-        salida = salida + "\n\tLAS: " + las;
-        salida = salida + "\n\tLAN: " + lan;
-        salida = salida + "\n\tEUW: " + euw;
-        salida = salida + "\n\tKR: "+ kr;
-        salida = salida + "\n\tNA: "+ na;
-        salida = salida + "\n\tRU: "+ru;
+        salida = salida + "\n\tLAS: " + las*6.15;
+        salida = salida + "\n\tLAN: " + lan*6.15;
+        salida = salida + "\n\tEUW: " + euw*6.15;
+        salida = salida + "\n\tKR: "+ kr*6.15;
+        salida = salida + "\n\tNA: "+ na*6.15;
+        salida = salida + "\n\tRU: "+ru*6.15;
         return salida;
     }
     
@@ -351,11 +351,12 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
         for (int i = 0; i < listaPersonajes.getCantPersonajes(); i++) {
             Personaje personaje = listaPersonajes.getPersonajeI(i);
             salida = salida + "Nombre personaje: " + personaje.getNombrePersonaje()+"\n";
-            salida = salida + "Recaudacion: "+ personaje.getRecaudacion();
+            salida = salida + "Recaudacion: "+ personaje.getRecaudacion()*6.15;
         }
         return salida;
     }
     
+    @Override
     public boolean bloquearCuenta(String nombreCuenta)
     {
         Cuenta cuenta = listaCuentas.buscarCuenta(nombreCuenta);
@@ -367,6 +368,7 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
         }
     }
     
+    @Override
     public String desplegarCuentasNivel()
     {
         String salida = "";
@@ -431,6 +433,17 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
         }
     }
 
-    
+    @Override
+    public boolean iniciarSesionComprobar(String nombreCuenta, String contraseña){
+        Cuenta cuenta = listaCuentas.buscarCuenta(nombreCuenta);
+        if(cuenta != null){
+            if(cuenta.getContraseña().equals(contraseña)){
+                return true;
+            }
+        }else{
+            throw new NullPointerException ("La cuenta no existe");
+        }
+        return false;
+    }
     
 }
