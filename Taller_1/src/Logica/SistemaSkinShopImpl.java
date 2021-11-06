@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Logica;
 
 import Dominio.*;
@@ -55,6 +51,7 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
         }
     }
     
+    @Override
     public boolean agregarCuenta(String nombreCuenta, String contraseña, String nick,int nivel, int rp, String region)
     {
         Cuenta cuenta = new Cuenta(nombreCuenta,contraseña,nick,nivel,rp,region);
@@ -63,6 +60,7 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
         return ingreso;
     }
     
+    @Override
     public void asociarPersonajeCuenta(String nickCuenta, String nombrePersonaje)
     {
         Cuenta cuenta = listaCuentas.buscarCuenta(nickCuenta);
@@ -76,6 +74,7 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
         }
     }
     
+    @Override
     public void agregarSkinACuenta(String nombreSkin, String nombreCuenta)
     {
         Cuenta cuenta = listaCuentas.buscarCuenta(nombreCuenta);
@@ -210,6 +209,7 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
         
     }
     
+    @Override
     public String mostrarDatos(String nombreCuenta)
     {
         String salida ="";
@@ -232,20 +232,23 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
     }
     
     @Override
-    public void cambiarContraseña(String nombreCuenta, String contraseñaAntigua1, String contraseñaAntigua2, String nuevaContraseña)
+    public boolean cambiarContraseña(String nombreCuenta, String contraseñaAntigua1, String contraseñaAntigua2, String nuevaContraseña)
     {
         Cuenta cuenta = listaCuentas.buscarCuenta(nombreCuenta);
         String oldPass = cuenta.getContraseña();
         
         if(cuenta != null && !cuenta.getEstadoCuenta() != false){
-            
+            if(contraseñaAntigua1.equals(oldPass) && contraseñaAntigua2.equals(oldPass)){
+                cuenta.setContraseña(nuevaContraseña);
+                return true;
+            }else{
+                return false;
+            }          
+        }else{
+            throw new NullPointerException("La cuenta no existe");
         }
         
-        if(contraseñaAntigua1.equals(oldPass) && contraseñaAntigua2.equals(oldPass)){
-            cuenta.setContraseña(nuevaContraseña);
-        }else{
-            
-        }
+        
     }
     
     @Override
@@ -427,5 +430,7 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
             throw new NullPointerException("El personaje no existe");
         }
     }
+
+    
     
 }

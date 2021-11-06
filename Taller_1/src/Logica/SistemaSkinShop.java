@@ -40,7 +40,7 @@ public interface SistemaSkinShop {
     
     public String mostrarDatos(String nombreCuenta);
     
-    public void cambiarContraseña(String nombreCuenta, String contraseñaAntigua1, String contraseñaAntigua2, String nuevaContraseña);
+    public boolean cambiarContraseña(String nombreCuenta, String contraseñaAntigua1, String contraseñaAntigua2, String nuevaContraseña);
     
     public String recaudacionPorRol ();
     
@@ -52,7 +52,7 @@ public interface SistemaSkinShop {
     
     public String desplegarCuentasNivel();
     
-    public boolean ingresarPersonajesAdmin(String nombrePersonaje, String rol);
+    public boolean agregarPersonajeAdmin(String nombrePersonaje,String rol,String nombreSkin,String calidadSkin);
     
     public boolean asociarEstadistica(String nombrePersonje, double recaudacion); // contrato nuevo para archivo recaudacion
     

@@ -21,11 +21,7 @@ public class Main {
         Scanner sc = new Scanner (System.in);
         SistemaSkinShop sistema =new SistemaSkinShopImpl();
         
-        System.out.println("Agregar Nuevo Personaje");
-        String nombrePersonaje = sc.next();
-        String rol = sc.next();
         
-        sistema.ingresarPersonajesAdmin(nombrePersonaje, rol);
         
         
     }
