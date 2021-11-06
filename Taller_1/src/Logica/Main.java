@@ -142,13 +142,16 @@ public class Main {
                 switch (opcion){
                     case 1:
                         System.out.println("\nHas seleccionado la opción 1:  Agregar personaje.");
-                            
+                        
+                        break;    
                     case 2:
                         System.out.println("\nHas seleccionado la opción 2:  Agregar Skin.");
                         
+                        break;
                     case 3:
                         System.out.println("\nHas seleccionado la opción 3:  Bloquear un Jugador.");
                         
+                        break;
                     default:
                         System.out.println("\nSolo números entre 1 y 3");
                }    
