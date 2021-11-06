@@ -124,7 +124,7 @@ public class Main {
         while (!salir) ;
     }
     /*
-     * public static void menuAdmin()
+    public static void menuAdmin()
     {   Scanner sc = new Scanner(System.in);
         recaudacionRol();
         recaudacionPorRegion();
@@ -135,6 +135,7 @@ public class Main {
             System.out.println("1. Agregar personaje.");
             System.out.println("2. Agregar Skin.");
             System.out.println("3. Bloquear un jugador.");
+            System.out.println("4. Salir");
             try
             {
                 System.out.print("Escribe una de las opciones: ");
@@ -152,8 +153,12 @@ public class Main {
                         System.out.println("\nHas seleccionado la opción 3:  Bloquear un Jugador.");
                         
                         break;
+                    case 4:
+                        System.out.println("\nHas seleccionado la opción 4: Salir.");
+                        salir = true;
+                        break;
                     default:
-                        System.out.println("\nSolo números entre 1 y 3");
+                        System.out.println("\nSolo números entre 1 y 4");
                }    
     
             }catch(InputMismatchException e){
@@ -162,6 +167,7 @@ public class Main {
             }
         }
         while(!salir);
+        desplegarCuentasNivel();
     }
     */
 
