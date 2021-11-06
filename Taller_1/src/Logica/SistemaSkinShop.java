@@ -1,17 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Logica;
 
 import Dominio.Cuenta;
 import Dominio.Personaje;
 
-/**
- *
- * @author crist
- */
+
 public interface SistemaSkinShop {
     
     public boolean agregarPersonaje(String nombre, String rol);
@@ -26,11 +19,9 @@ public interface SistemaSkinShop {
     
     public void agregarSkinACuenta(String nombreSkin, String nombreCuenta);
     
-    //public boolean iniciarSesion(String nombreCuenta, String contraseña);  // eliminar por que va en el APP
-    
     public boolean comprarSkin (String nombreCuenta, String nombrePersonaje, String nombreSkin);
     
-    public boolean comprarPersonaje (String nombreCuenta, String nombrePersonaje); // agregar nombreCuenta al contrato
+    public boolean comprarPersonaje (String nombreCuenta, String nombrePersonaje); 
     
     public String mostrarSkinsDisponibles(String nombreCuenta);
     
@@ -54,9 +45,9 @@ public interface SistemaSkinShop {
     
     public boolean agregarPersonajeAdmin(String nombrePersonaje,String rol,String nombreSkin,String calidadSkin);
     
-    public boolean asociarEstadistica(String nombrePersonje, double recaudacion); // contrato nuevo para archivo recaudacion
+    public boolean asociarEstadistica(String nombrePersonje, double recaudacion); 
     
     public boolean iniciarSesionComprobar(String nombreCuenta, String contraseña);
     
-    //public void menuAdmin(); //
+    
 }

@@ -433,7 +433,7 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
         }
     }
 
-    @Override
+    
     public boolean iniciarSesionComprobar(String nombreCuenta, String contraseña){
         //comprobar #ADMIN
         //if (!nombreCuenta.equals("ADMIN") && !contraseña.equals("ADMIN"))

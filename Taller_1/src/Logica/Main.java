@@ -1,8 +1,9 @@
 package Logica;
 
+import java.io.File;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
+import java.io.IOException;
 
 public class Main {
 
@@ -171,4 +172,32 @@ public class Main {
     }
     */
 
+    
+    /*public static void lecturaArchivo1(SistemaSkinShopImpl sistema) throws IOException
+    {   Scanner sc=new Scanner(new File("Personajes.txt"));
+        while(sc.hasNextLine()){
+            
+        }
+        
+       
+    
+    }
+    */ 
+    /*
+    public static void lecturaArchivo2(SistemaSkinShopImpl sistrema) throws IOException
+    {   Scanner sc = new Scanner (new File("Cuentas.txt"))
+        while(sc.hasNextLine()){
+        
+        }
+    
+    }
+    */
+    
+    /*
+    public static void lecturaArchivo3(SistemaSkinShopImpl sistema) throws IOException
+        Scanner sc = new Scanner (new File("Estadisticas.txt"))
+        while(sc.hasNextLine()){
+        
+        }
+    */
 }
