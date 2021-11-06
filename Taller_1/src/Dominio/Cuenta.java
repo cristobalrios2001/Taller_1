@@ -12,7 +12,8 @@ public class Cuenta {
     private int nivelCuenta;
     private int cantRP;
     private String region;
-    private int recaudacionCta; //nueva variable
+    private double recaudacionCta; //nueva variable
+    private boolean estadoCuenta; // nueva variable
     private ListaSkins listaSkins;
     private ListaPersonajes listaPersonajes;
     private ListaCuentas listaCuentas;
@@ -25,6 +26,7 @@ public class Cuenta {
         this.cantRP = cantRP;
         this.region = region;
         this.recaudacionCta = recaudacionCta;
+        estadoCuenta = true;
         listaCuentas = new ListaCuentas(250);
         listaPersonajes = new ListaPersonajes(155);
         listaSkins = new ListaSkins(250);
@@ -70,7 +72,7 @@ public class Cuenta {
         return cantRP;
     }
 
-    public int getRecaudacionCta() {
+    public double getRecaudacionCta() {
         return recaudacionCta;
     }
 
@@ -84,6 +86,24 @@ public class Cuenta {
 
     public void setNivelCuenta(int nivelCuenta) {
         this.nivelCuenta = nivelCuenta;
+    }
+
+    public boolean getEstadoCuenta() {
+        return estadoCuenta;
+    }
+
+    public void setEstadoCuenta(boolean estadoCuenta) {
+        this.estadoCuenta = estadoCuenta;
+    }
+    
+    
+
+    public void setListaPersonajes(ListaPersonajes listaPersonajes) {
+        this.listaPersonajes = listaPersonajes;
+    }
+
+    public void setListaCuentas(ListaCuentas listaCuentas) {
+        this.listaCuentas = listaCuentas;
     }
     
     

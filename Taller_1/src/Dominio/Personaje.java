@@ -7,7 +7,7 @@ import Logica.ListaSkins;
 public class Personaje {
     private String nombrePersonaje;
     private String rol;
-    private int recaudacion;
+    private double recaudacion;
     private ListaSkins listaSkins;
 
     public Personaje(String nombrePersonaje, String rol) {
@@ -33,11 +33,11 @@ public class Personaje {
         this.rol = rol;
     }
 
-    public int getRecaudacion() {
+    public double getRecaudacion() {
         return recaudacion;
     }
 
-    public void setRecaudacion(int recaudacion) {
+    public void setRecaudacion(double recaudacion) {
         this.recaudacion = recaudacion;
     }
 

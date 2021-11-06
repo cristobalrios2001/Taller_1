@@ -13,6 +13,7 @@ import Dominio.Personaje;
  * @author crist
  */
 public interface SistemaSkinShop {
+    
     public boolean agregarPersonaje(String nombre, String rol);
     
     public boolean agregarSkin (String nombre, String calidad);
@@ -25,11 +26,11 @@ public interface SistemaSkinShop {
     
     public void agregarSkinACuenta(String nombreSkin, String nombreCuenta);
     
-    public boolean iniciarSesion(String nombreCuenta, String contraseña);
+    //public boolean iniciarSesion(String nombreCuenta, String contraseña);  // eliminar por que va en el APP
     
-    public boolean comprarSkin (String nombrePersonaje, String nombreSkin);
+    public boolean comprarSkin (String nombreCuenta, String nombrePersonaje, String nombreSkin);
     
-    public boolean comprarPersonaje (String nombrePersonaje);
+    public boolean comprarPersonaje (String nombreCuenta, String nombrePersonaje); // agregar nombreCuenta al contrato
     
     public String mostrarSkinsDisponibles(String nombreCuenta);
     
@@ -53,7 +54,7 @@ public interface SistemaSkinShop {
     
     public boolean ingresarPersonajesAdmin(String nombrePersonaje, String rol);
     
-    
+    public boolean asociarEstadistica(String nombrePersonje, double recaudacion); // contrato nuevo para archivo recaudacion
     
     
 }
