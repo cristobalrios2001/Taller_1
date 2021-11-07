@@ -35,10 +35,16 @@ public class Main {
         }
         else{
             try{
-                boolean ver = false;
-                ver = sistema.iniciarSesionComprobar(nombreCuenta, contraseña);
-                if (ver == true){
+                boolean verificar = false;
+                verificar = sistema.iniciarSesionComprobar(nombreCuenta, contraseña);
+                if (verificar == true){
                     menuCliente(sistema, nombreCuenta);
+                }else{
+                    System.out.println("No existe la cuenta, ¿Desea crear una cuenta? (Si / No)");
+                    String opcionCrear= sn.next();
+                    if(opcionCrear.equalsIgnoreCase("Si")){
+                        
+                    }
                 }
             }catch(Exception ex){
                 System.out.println(ex.getMessage());
@@ -188,25 +194,60 @@ public class Main {
     
 
     
-    /*public static void lecturaArchivo1(SistemaSkinShopImpl sistema) throws IOException
-    {   Scanner sc=new Scanner(new File("Personajes.txt"));
-        while(sc.hasNextLine()){
-            
+    public static void lecturaArchivo(SistemaSkinShop sistema)throws IOException{
+        System.out.println("Leyendo cuentas");
+        Scanner s = new Scanner(new File("Personajes.txt"));
+        while(s.hasNextLine()) {
+            String line = s.nextLine();
+            String [] partes = line.split(",");
+            String nombrePersonaje = partes[0];
+            String rol = partes[1];
+            try {
+                boolean ingreso = sistema.agregarPersonaje(nombrePersonaje, rol);
+                if(ingreso) {
+                    int cantSkins = Integer.parseInt(partes[2]);
+                    int cont = 3;
+                    for(int i=0;i<cantSkins;i++) {
+                        String nombreSkin = partes[cont];
+                        String calidadSkin = partes[cont+1];
+                        cont+=2;
+                        try {
+                            boolean ingresoAsocia = system.ingresarAsociarPersonajeSkin(nombrePersonaje, rol, nombreSkin, calidadSkin);
+                            if(!ingresoAsocia) {
+                                System.out.println("No se puede ingresar las skin a la cuenta por que no queda espacio");
+                            }
+                        }catch(Exception ex) {
+                            System.out.println("\t"+ex.getMessage());
+                        }
+                    }
+                    
+                }
+            }catch (Exception ex) {
+                System.out.println("\t"+ex.getMessage());
+            }
         }
-        
-       
+    }
+    
+    
+    public static void lecturaCuentas(SistemaSkinShopImpl sistrema) throws IOException
+    {
+        Scanner sc = new Scanner (new File("Cuentas.txt"));
+        while(sc.hasNextLine()){
+            String [] partes = sc.nextLine().split(",");
+            for (int i = 6; i < partes.length-2 ; i++) {
+                String nombreCampeon = partes[i];
+                
+                int cantSkins = Integer.parseInt(partes[i+1]);
+                for (int j = i+2; j < (i+2)+cantSkins; j++) {
+                    String nombreSkin = partes[j];
+                    
+                }
+                i += cantSkins+1;
+            }
+        }
     
     }
-    */ 
-    /*
-    public static void lecturaArchivo2(SistemaSkinShopImpl sistrema) throws IOException
-    {   Scanner sc = new Scanner (new File("Cuentas.txt"))
-        while(sc.hasNextLine()){
-        
-        }
     
-    }
-    */
     
     /*
     public static void lecturaArchivo3(SistemaSkinShopImpl sistema) throws IOException

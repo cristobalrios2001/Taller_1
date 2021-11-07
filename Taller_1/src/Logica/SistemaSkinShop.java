@@ -11,11 +11,13 @@ public interface SistemaSkinShop {
     
     public boolean agregarSkin (String nombre, String calidad);
     
-    public void asociarPersonajeSkin(String nombrePersonaje, String nombreSkin);
+    public boolean asociarPersonajeSkin(String nombrePersonaje, String rol , String nombreSkin, String calidad);
+    
+    public boolean ingresarSkinPersonaje(String nombrePeronsje, String nombreSkin, String calidad); // agrega una skin cuando el personaje ya existe
     
     public boolean agregarCuenta(String nombreCuenta, String contraseña, String nick,int nivel, int rp, String region);
     
-    public void asociarPersonajeCuenta(String nickCuenta, String nombrePersonaje);
+    public boolean asociarPersonajeCuenta(String nickCuenta, String nombrePersonaje);
     
     public void agregarSkinACuenta(String nombreSkin, String nombreCuenta);
     
@@ -49,5 +51,6 @@ public interface SistemaSkinShop {
     
     public boolean iniciarSesionComprobar(String nombreCuenta, String contraseña);
     
+    public String obtenerSkinsDisponiblesPersonaje(String nombreCuenta, String nombrePersonaje);
     
 }

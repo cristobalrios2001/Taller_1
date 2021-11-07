@@ -24,6 +24,7 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
         return ingreso;
     }
     
+    @Override
     public boolean agregarSkin (String nombre, String calidad)
     {
         Skin skin = listaSkins.buscarSkin(nombre);
@@ -32,46 +33,83 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
         }else{
             throw new NullPointerException("Esta skin ya existe");
         }
-        
-        boolean ingreso = listaSkins.ingresarSkin(skin);
-        
-        return ingreso;
+                
+        return listaSkins.ingresarSkin(skin);
     }
     
     @Override
-    public void asociarPersonajeSkin(String nombrePersonaje, String nombreSkin)
+    public boolean asociarPersonajeSkin(String nombrePersonaje, String rol , String nombreSkin, String calidad)
     {
-        Skin skin = listaSkins.buscarSkin(nombreSkin);
+        
         Personaje personaje = listaPersonajes.buscarPersonaje(nombrePersonaje);
         
-        if(skin != null || personaje != null){
-            boolean ingreso = personaje.getListaSkins().ingresarSkin(skin);
-        }else{
-            throw new NullPointerException("No existe personaje y/o skin");
+        if(personaje == null){
+           Personaje p = new Personaje(nombrePersonaje, rol);
+           listaPersonajes.ingresarPersonaje(p);
+           
+           Skin skin = listaSkins.buscarSkin(nombreSkin);
+           if (skin == null){
+               Skin sk = new Skin (nombreSkin, calidad);
+               listaSkins.ingresarSkin(sk);
+               p.getListaSkins().ingresarSkin(sk);
+               return true;
+           }
         }
+        return false;
+    }
+    
+    @Override
+    public boolean ingresarSkinPersonaje(String nombrePeronsje, String nombreSkin, String calidad){
+        Personaje personaje = listaPersonajes.buscarPersonaje(nombrePeronsje);
+        
+        if(personaje != null){
+            Skin skinBusq = listaSkins.buscarSkin(nombreSkin);
+            if(skinBusq == null){
+                Skin skinNew = new Skin (nombreSkin, calidad);
+                personaje.getListaSkins().ingresarSkin(skinNew);
+            }
+        }
+        return false;
     }
     
     @Override
     public boolean agregarCuenta(String nombreCuenta, String contraseña, String nick,int nivel, int rp, String region)
     {
-        Cuenta cuenta = new Cuenta(nombreCuenta,contraseña,nick,nivel,rp,region);
-        
-        boolean ingreso = listaCuentas.ingresar(cuenta);
+        boolean ingreso=false;
+        Cuenta cuenta = listaCuentas.buscarCuenta(nombreCuenta);
+        if(cuenta == null){
+            Cuenta cuentaNueva= new Cuenta(nombreCuenta,contraseña,nick,nivel,rp,region);
+            ingreso = listaCuentas.ingresar(cuentaNueva);
+        }
         return ingreso;
     }
     
+    public boolean existeCuenta(String nombreCuenta){
+        Cuenta cuenta = listaCuentas.buscarCuenta(nombreCuenta);
+        if (cuenta != null){
+            if( cuenta.getEstadoCuenta() == true){
+                return true;
+            }else{
+                return false;
+            }
+                
+        }
+        return false;
+    }
+    
     @Override
-    public void asociarPersonajeCuenta(String nickCuenta, String nombrePersonaje)
+    public boolean asociarPersonajeCuenta(String nickCuenta, String nombrePersonaje)
     {
         Cuenta cuenta = listaCuentas.buscarCuenta(nickCuenta);
         Personaje personaje = listaPersonajes.buscarPersonaje(nombrePersonaje);
-        
+        boolean ingreso = false;
         if(cuenta != null || personaje != null)
         {
-            boolean ingreso = cuenta.getListaPersojanes().ingresarPersonaje(personaje);
+            ingreso = cuenta.getListaPersojanes().ingresarPersonaje(personaje);
         }else{
             throw new NullPointerException ("No existe Cuenta y/o personaje");
         }
+        return ingreso;
     }
     
     @Override
@@ -434,9 +472,9 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
     }
 
     
+    @Override
     public boolean iniciarSesionComprobar(String nombreCuenta, String contraseña){
-        //comprobar #ADMIN
-        //if (!nombreCuenta.equals("ADMIN") && !contraseña.equals("ADMIN"))
+        
         Cuenta cuenta = listaCuentas.buscarCuenta(nombreCuenta);
         if(cuenta != null){
             if(cuenta.getContraseña().equals(contraseña)){
@@ -447,5 +485,36 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
         }
         return false;
     }
+    
+    public String obtenerSkinsDisponiblesPersonaje(String nombreCuenta, String nombrePersonaje){
+        String salida = "";
+        
+        Cuenta cuenta = listaCuentas.buscarCuenta(nombreCuenta);
+        Personaje persCuenta = cuenta.getListaPersojanes().buscarPersonaje(nombrePersonaje);
+        Personaje personaje = listaPersonajes.buscarPersonaje(nombrePersonaje);
+        
+        if(persCuenta != null){
+            ListaSkins lsCuenta = persCuenta.getListaSkins();
+            ListaSkins lsGen = personaje.getListaSkins();
+            for (int i = 0; i < lsGen.getCantSkins(); i++) {
+                
+                Skin skinCuenta = lsCuenta.getSkinI(i);
+                Skin skinGen = lsGen.getSkinI(i);
+                
+                salida += "Skins de "+ persCuenta.getNombrePersonaje()+": \n";
+                
+                if(!skinCuenta.getNombreSkin().equals(skinGen.getNombreSkin())){
+                    salida += "\t"+skinCuenta.getNombreSkin()+"\n";
+                }
+            }
+            
+        }else{
+            throw new NullPointerException("El personaje no existe");
+        }
+        
+        return salida;
+    }
+    
+    
     
 }
