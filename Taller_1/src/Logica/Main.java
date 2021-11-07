@@ -18,18 +18,36 @@ public class Main {
         
     }
     
-    public static boolean ingresoSisma(SistemaSkinShop sistema){
+    
+    
+     public static void verificarRut(SistemaSkinShop sistema){
         Scanner sn = new Scanner(System.in);
-        System.out.println("Has seleccionado la opción 1: Iniciar Sesión");
         System.out.println("Ingresar usuario: ");
         String nombreCuenta = sn.next();
 
         System.out.println("Ingresar Contraseña: ");
         String contraseña = sn.next();
         
-        boolean estadoInicio = sistema.iniciarSesionComprobar(nombreCuenta, contraseña);
-        return estadoInicio;
-}
+        
+        
+        if(nombreCuenta.equals("ADMIN") && contraseña.equals("ADMIN")){
+            menuAdmin(sistema); // es admin
+        }
+        else{
+            try{
+                boolean ver = false;
+                ver = sistema.iniciarSesionComprobar(nombreCuenta, contraseña);
+                if (ver == true){
+                    menuCliente(sistema, nombreCuenta);
+                }
+            }catch(Exception ex){
+                System.out.println(ex.getMessage());
+            }
+        }
+        
+    }
+    
+    
     
     public static void sistema (SistemaSkinShop sistema){
         Scanner sn = new Scanner(System.in);
@@ -44,12 +62,7 @@ public class Main {
                 switch (opcion) {
                     case 1:
                         System.out.println("Has seleccionado la opción 1: Iniciar Sesión");
-                        System.out.println("Ingresar usuario: ");
-                        String nombreCuenta = sn.next();
                         
-                        System.out.println("Ingresar Contraseña: ");
-                        String contraseña=sn.nextLine();
-                        sistema.iniciarSesionComprobar(nombreCuenta, contraseña);
                         break;
                     
                     case 2:
@@ -70,7 +83,7 @@ public class Main {
     
     
     
-    public static void menuCliente(SistemaSkinShop sistema){
+    public static void menuCliente(SistemaSkinShop sistema, String nombreCuenta){
         Scanner sn = new Scanner (System.in);
         boolean salir = false;
         int opcion; 
@@ -124,13 +137,15 @@ public class Main {
         }
         while (!salir) ;
     }
-    /*
-    public static void menuAdmin()
+   
+    
+    
+    public static void menuAdmin(SistemaSkinShop sistema)
     {   Scanner sc = new Scanner(System.in);
-        recaudacionRol();
-        recaudacionPorRegion();
-        recaudacionPorPersonaje();
-        cantidadDePersonajesPorRol();
+        //recaudacionRol();
+        //recaudacionPorRegion();
+        //recaudacionPorPersonaje();
+        //cantidadDePersonajesPorRol();
         int opcion;
         do{
             System.out.println("1. Agregar personaje.");
@@ -168,9 +183,9 @@ public class Main {
             }
         }
         while(!salir);
-        desplegarCuentasNivel();
+        //desplegarCuentasNivel();
     }
-    */
+    
 
     
     /*public static void lecturaArchivo1(SistemaSkinShopImpl sistema) throws IOException
