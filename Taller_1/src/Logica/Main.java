@@ -123,11 +123,11 @@ public class Main {
                         break;
                     case 5:
                         System.out.println("\nHas seleccionado la opción 5: Recargar RP.");
-                        
+                        recargarRp(sistema, nombreCuenta);
                         break;
                     case 6:
                         System.out.println("\nHas seleccionado la opción 6: Mostrar Datos de Cuenta.");
-                        System.out.println(mostrarDatos( nombreCuenta);
+                        System.out.println(sistema.mostrarDatos(nombreCuenta));
                         break;
                     case 7:
                         System.out.println("\nHas seleccionado la opción 7: Salir.");
@@ -179,7 +179,7 @@ public class Main {
         
     }
     
-    public static void recargarRp(SistemaSkinShop sistema, String nombreCuenta){
+    public static boolean  recargarRp(SistemaSkinShop sistema, String nombreCuenta){
         Scanner sc = new Scanner (System.in);
         System.out.println("Ingresar cantidad de rp a ingresar: ");
         int newSaldoRp = sc.nextInt();
@@ -190,8 +190,9 @@ public class Main {
         }
         
         if(sistema.recargarSaldoRP( nombreCuenta,  newSaldoRp)){
-            
+            return true;
         }
+        return false;
     }
     
     public static void menuAdmin(SistemaSkinShop sistema)
@@ -214,15 +215,15 @@ public class Main {
                 switch (opcion){
                     case 1:
                         System.out.println("\nHas seleccionado la opción 1:  Agregar personaje.");
-                        
+                        agregarPersonaje(sistema);
                         break;    
                     case 2:
                         System.out.println("\nHas seleccionado la opción 2:  Agregar Skin.");
-                        
+                        agregarSkin(sistema);
                         break;
                     case 3:
                         System.out.println("\nHas seleccionado la opción 3:  Bloquear un Jugador.");
-                        
+                        bloquearJugador(sistema);
                         break;
                     case 4:
                         System.out.println("\nHas seleccionado la opción 4: Salir.");
@@ -241,7 +242,59 @@ public class Main {
         //desplegarCuentasNivel();
     }
     
-
+    public static void agregarPersonaje(SistemaSkinShop sistema){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Ingrese Nombre de personaje a agregar: "); String nombrePersonaje = sc.next();
+        System.out.println("Ingrese Rol de personaje: "); String rol = sc.next();
+        
+        System.out.println("Ingrese cantidad de Skins: "); int cantSkins = sc.nextInt();
+        
+        while (cantSkins<0) {
+             System.out.println("Ingrese cantidad de Skins: ");  cantSkins = sc.nextInt();
+        }
+        
+        System.out.println("Ingrese Nombre de Skin: "); String nombreSkin = sc.next();
+        System.out.println("Ingrese Calidad de Skin: "); String calidad = sc.next();
+        
+        sistema.asociarPersonajeSkin( nombrePersonaje,  rol ,  nombreSkin,  calidad);
+        
+        if(cantSkins == 1 && cantSkins!= 0){
+            sistema.asociarPersonajeSkin( nombrePersonaje,  rol ,  nombreSkin,  calidad);
+            
+            
+        }else if(cantSkins >1){
+             sistema.ingresarSkinPersonaje( nombrePersonaje,  nombreSkin,  calidad);
+        }
+        
+        
+        
+        
+    }
+    
+    public static void agregarSkin(SistemaSkinShop sistema){
+        Scanner sc = new Scanner (System.in);
+        System.out.println("Ingrese NOMBRE del PERSONAJE para ingresar skin correspondiente: "); String nombrePersonaje = sc.next();
+        System.out.println("Ingrese NOMBRE de la SKIN: "); String nombreSkin = sc.next();
+        System.out.println("Ingrese CALIDAD de la SKIN: "); String calidad = sc.next();
+        
+        boolean ingreso = sistema.ingresarSkinPersonaje( nombrePersonaje,  nombreSkin,  calidad); 
+        
+        if(ingreso == true){
+            System.out.println("Skin ingresada al personaje");
+        }else{
+            System.out.println("No se pudo ingresar la skin");
+        }
+    }
+    
+    public static void bloquearJugador(SistemaSkinShop sistema){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Ingresar el jugador a bloquear: "); String nombreCuenta = sc.next();
+        try{
+            sistema.bloquearCuenta( nombreCuenta);
+        }catch (NullPointerException ex){
+            System.out.println(ex.getMessage());
+        }
+    }
     
     public static void lecturaArchivo(SistemaSkinShop sistema)throws IOException{        
         Scanner s = new Scanner(new File("Personajes.txt"));

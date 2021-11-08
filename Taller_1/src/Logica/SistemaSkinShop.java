@@ -47,12 +47,12 @@ public interface SistemaSkinShop {
      *      that the characters exists
      * pos:
      *      add a new skin to the system
-     * @param nombrePeronsje name of the character
+     * @param nombrePersonaje name of the character
      * @param nombreSkin skin of the character
      * @param calidad quality character's
      * @return returns a boolean with the result of the process
      */
-    public boolean ingresarSkinPersonaje(String nombrePeronsje, String nombreSkin, String calidad); // agrega una skin cuando el personaje ya existe
+    public boolean ingresarSkinPersonaje(String nombrePersonaje, String nombreSkin, String calidad); // agrega una skin cuando el personaje ya existe
     
    /**
      * The account is added to the system

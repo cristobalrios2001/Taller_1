@@ -64,8 +64,8 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
     }
     
     @Override
-    public boolean ingresarSkinPersonaje(String nombrePeronsje, String nombreSkin, String calidad){
-        Personaje personaje = listaPersonajes.buscarPersonaje(nombrePeronsje);
+    public boolean ingresarSkinPersonaje(String nombrePersonaje, String nombreSkin, String calidad){
+        Personaje personaje = listaPersonajes.buscarPersonaje(nombrePersonaje);
         
         if(personaje != null){
             Skin skinBusq = listaSkins.buscarSkin(nombreSkin);

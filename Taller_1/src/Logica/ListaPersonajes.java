@@ -17,13 +17,21 @@ public class ListaPersonajes {
     
     public boolean ingresarPersonaje(Personaje personaje)
     {
-        if(cantPersonajes<max){
-            listaPersonajes[cantPersonajes] = personaje;
-            cantPersonajes++;
-            return true;
-        }else{
-            return false;
+        boolean existe = false;
+        for (int i = 0; i < cantPersonajes; i++) {
+            if(listaPersonajes[i].equals(personaje)){
+                existe = true;
+            }
         }
+        
+        if(existe == false){
+            if(cantPersonajes<max){
+                listaPersonajes[cantPersonajes] = personaje;
+                cantPersonajes++;
+            return true;
+            }
+        }
+        return false;
     }
     
     public Personaje buscarPersonaje (String nombrePersonaje)
