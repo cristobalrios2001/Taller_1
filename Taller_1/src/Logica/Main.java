@@ -243,8 +243,7 @@ public class Main {
     
 
     
-    public static void lecturaArchivo(SistemaSkinShop sistema)throws IOException{
-        System.out.println("Leyendo cuentas");
+    public static void lecturaArchivo(SistemaSkinShop sistema)throws IOException{        
         Scanner s = new Scanner(new File("Personajes.txt"));
         while(s.hasNextLine()) {
             String line = s.nextLine();
@@ -263,7 +262,7 @@ public class Main {
                         try {
                             boolean ingresoAsocia = sistema.asociarPersonajeSkin( nombrePersonaje,  rol ,  nombreSkin,  calidad);
                             if(!ingresoAsocia) {
-                                System.out.println("No se puede ingresar las skin a la cuenta por que no queda espacio");
+                                System.out.println("No se puede ingresar las skin a la cuenta por que no queda espacio disponible");
                             }
                         }catch(Exception ex) {
                             System.out.println("\t"+ex.getMessage());

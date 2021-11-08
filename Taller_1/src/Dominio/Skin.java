@@ -8,6 +8,7 @@ public class Skin {
     public Skin(String nombreSkin, String calidad) {
         this.nombreSkin = nombreSkin;
         this.calidad = calidad;
+        
     }
 
     public String getNombreSkin() {

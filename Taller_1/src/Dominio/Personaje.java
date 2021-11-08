@@ -15,6 +15,7 @@ public class Personaje {
         this.rol = rol;
         listaSkins = new ListaSkins (250);
         
+        
     }
 
     public String getNombrePersonaje() {

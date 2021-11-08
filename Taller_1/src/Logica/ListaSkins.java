@@ -13,6 +13,7 @@ public class ListaSkins {
         this.cantSkins = 0;
         this.max = max;
         listaSkins = new Skin[max];
+        
     }
     public boolean ingresarSkin(Skin skin){
         if(cantSkins<max){

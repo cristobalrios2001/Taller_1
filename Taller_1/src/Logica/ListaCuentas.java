@@ -27,6 +27,7 @@ public class ListaCuentas {
     
     public Cuenta buscarCuenta (String nombreCuenta)
     {
+        
         int i;
         for (i = 0; i < cantCuentas; i++) {
             if(listaCuentas[i].getNombreCuenta().equals(nombreCuenta)){

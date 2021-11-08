@@ -30,6 +30,7 @@ public class Cuenta {
         listaCuentas = new ListaCuentas(250);
         listaPersonajes = new ListaPersonajes(155);
         listaSkins = new ListaSkins(250);
+        
     }
 
     public String getNombreCuenta() {

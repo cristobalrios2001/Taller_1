@@ -126,6 +126,7 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
         if(cuenta != null && skin != null)
         {
             boolean ingreso = cuenta.getListaSkins().ingresarSkin(skin);
+            
         }else{
             throw new NullPointerException ("No existe Cuenta y/o skin");
         }
@@ -146,8 +147,7 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
                 
                 switch (calidad) {
                 case "M":                    
-                    cuenta.setCantRP(oldRp-3250);
-                    
+                    cuenta.setCantRP(oldRp-3250);                    
                     break;
                 case "D":                    
                     cuenta.setCantRP(oldRp-2750);

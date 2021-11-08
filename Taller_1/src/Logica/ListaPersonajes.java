@@ -12,6 +12,7 @@ public class ListaPersonajes {
         this.cantPersonajes = 0;
         this.max = max;
         listaPersonajes = new Personaje[max];
+        
     }
     
     public boolean ingresarPersonaje(Personaje personaje)
