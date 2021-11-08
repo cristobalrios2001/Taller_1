@@ -29,7 +29,7 @@ public interface SistemaSkinShop {
     
     public String desplegarInventario (String nombreCuenta);
     
-    public void recargarSaldo(String nombreCuenta, int newSaldo);
+    public boolean recargarSaldoRP(String nombreCuenta, int newSaldo);
     
     public String mostrarDatos(String nombreCuenta);
     

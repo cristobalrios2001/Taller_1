@@ -239,13 +239,14 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
     }
     
     @Override
-    public void recargarSaldo(String nombreCuenta, int newSaldoRp)
+    public boolean recargarSaldoRP(String nombreCuenta, int newSaldoRp)
     {
         Cuenta cuenta = listaCuentas.buscarCuenta(nombreCuenta);
         if(cuenta != null)
         {
             int saldoActual = cuenta.getCantRP();
             cuenta.setCantRP(newSaldoRp+saldoActual);
+            return true;
         }else
         {
             throw new NullPointerException("Cuenta no existe");
@@ -524,6 +525,7 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
         return salida;
     }
     
+    @Override
     public String obtenerPersonajesDisponibles (String nombreCuenta){
         String salida = "";
         Cuenta cuenta = listaCuentas.buscarCuenta(nombreCuenta);

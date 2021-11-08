@@ -115,11 +115,11 @@ public class Main {
                         break;
                     case 3:
                         System.out.println("\nHas seleccionado la opción 3: Skins Disponibles.");
-                       
+                        System.out.println(sistema.mostrarSkinsDisponibles( nombreCuenta));
                         break;
                     case 4:
                         System.out.println("\nHas seleccionado la opción 4: Mostrar Inventario.");
-                        
+                        System.out.println(sistema.desplegarInventario (nombreCuenta));
                         break;
                     case 5:
                         System.out.println("\nHas seleccionado la opción 5: Recargar RP.");
@@ -127,7 +127,7 @@ public class Main {
                         break;
                     case 6:
                         System.out.println("\nHas seleccionado la opción 6: Mostrar Datos de Cuenta.");
-                        
+                        System.out.println(mostrarDatos( nombreCuenta);
                         break;
                     case 7:
                         System.out.println("\nHas seleccionado la opción 7: Salir.");
@@ -177,6 +177,21 @@ public class Main {
             System.out.println("Compra no realizada");
         }
         
+    }
+    
+    public static void recargarRp(SistemaSkinShop sistema, String nombreCuenta){
+        Scanner sc = new Scanner (System.in);
+        System.out.println("Ingresar cantidad de rp a ingresar: ");
+        int newSaldoRp = sc.nextInt();
+        
+        while(newSaldoRp <0 || newSaldoRp ==0){
+            System.out.println("Reingrese datos, Ingresar cantidad de rp a ingresar: ");
+            newSaldoRp = sc.nextInt();
+        }
+        
+        if(sistema.recargarSaldoRP( nombreCuenta,  newSaldoRp)){
+            
+        }
     }
     
     public static void menuAdmin(SistemaSkinShop sistema)
