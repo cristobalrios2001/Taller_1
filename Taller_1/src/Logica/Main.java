@@ -107,11 +107,11 @@ public class Main {
                 switch (opcion) {
                     case 1:
                         System.out.println("\nHas seleccionado la opción 1:  Comprar Skin.");
-                                                
+                        comprarSkin(sistema, nombreCuenta);                        
                         break;
                     case 2:
                         System.out.println("\nHas seleccionado la opción 2: Comprar Personaje.");
-                                                
+                        comprarPersonaje(sistema, nombreCuenta);
                         break;
                     case 3:
                         System.out.println("\nHas seleccionado la opción 3: Skins Disponibles.");
@@ -144,7 +144,40 @@ public class Main {
         while (!salir) ;
     }
    
+    public static void comprarSkin(SistemaSkinShop sistema, String nombreCuenta){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Ingrese nombre del personaje: ");
+        String nombrePersonaje = sc.next();
+        
+        System.out.println(sistema.obtenerSkinsDisponiblesPersonaje( nombreCuenta,  nombrePersonaje));
+        
+        System.out.println("Ingrese nombre skin: ");
+        String nombreSkin = sc.next();
+        
+        sistema.comprarSkin ( nombreCuenta,  nombrePersonaje,  nombreSkin);
+    }
     
+    public static void comprarPersonaje(SistemaSkinShop sistema, String nombreCuenta){
+        Scanner sc = new Scanner(System.in);
+        System.out.println(sistema.obtenerPersonajesDisponibles(nombreCuenta));
+        System.out.println("Ingresar Nombre de personaje a comprar: ");
+        String nombrePersonajeCompra = sc.next();
+        boolean validacionCompra = false;
+        
+        try{
+            sistema.comprarPersonaje ( nombreCuenta,  nombrePersonajeCompra);
+            validacionCompra = true;
+        }catch(NullPointerException ex){
+            System.out.println(ex.getMessage());
+        }
+        
+        if( validacionCompra = true){
+            System.out.println("Compra Exitosa");
+        }else{
+            System.out.println("Compra no realizada");
+        }
+        
+    }
     
     public static void menuAdmin(SistemaSkinShop sistema)
     {   Scanner sc = new Scanner(System.in);
@@ -152,6 +185,7 @@ public class Main {
         //recaudacionPorRegion();
         //recaudacionPorPersonaje();
         //cantidadDePersonajesPorRol();
+        boolean salir = false;
         int opcion;
         do{
             System.out.println("1. Agregar personaje.");
@@ -209,10 +243,10 @@ public class Main {
                     int cont = 3;
                     for(int i=0;i<cantSkins;i++) {
                         String nombreSkin = partes[cont];
-                        String calidadSkin = partes[cont+1];
+                        String calidad = partes[cont+1];
                         cont+=2;
                         try {
-                            boolean ingresoAsocia = system.ingresarAsociarPersonajeSkin(nombrePersonaje, rol, nombreSkin, calidadSkin);
+                            boolean ingresoAsocia = sistema.asociarPersonajeSkin( nombrePersonaje,  rol ,  nombreSkin,  calidad);
                             if(!ingresoAsocia) {
                                 System.out.println("No se puede ingresar las skin a la cuenta por que no queda espacio");
                             }

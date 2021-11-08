@@ -53,4 +53,5 @@ public interface SistemaSkinShop {
     
     public String obtenerSkinsDisponiblesPersonaje(String nombreCuenta, String nombrePersonaje);
     
+    public String obtenerPersonajesDisponibles (String nombreCuenta);
 }

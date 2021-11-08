@@ -18,8 +18,13 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
     @Override
     public boolean agregarPersonaje(String nombre, String rol)
     {
-        Personaje personaje = new Personaje(nombre,rol);
-        boolean ingreso = listaPersonajes.ingresarPersonaje(personaje);
+        boolean ingreso = false;
+        Personaje personaje = listaPersonajes.buscarPersonaje(nombre);
+        if(personaje==null){
+            personaje = new Personaje(nombre,rol);
+            ingreso = listaPersonajes.ingresarPersonaje(personaje);
+        }
+        
         
         return ingreso;
     }
@@ -171,6 +176,7 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
         
     }
     
+    @Override
     public boolean comprarPersonaje (String nombreCuenta, String nombrePersonaje)
     {
         Cuenta cuenta = listaCuentas.buscarCuenta(nombreCuenta);
@@ -184,6 +190,7 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
             cuenta.getListaPersojanes().ingresarPersonaje(personaje);
             return true;
         }else{
+            
             throw new NullPointerException("El personaje no existe");
             
         }
@@ -305,19 +312,19 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
             
             switch (rol) {
                 case "SUP":
-                    sup += personaje.getRecaudacion();
+                    sup += personaje.getRecaudacion()*6.15;
                     break;
                 case "ADC":
-                    adc += personaje.getRecaudacion();
+                    adc += personaje.getRecaudacion()*6.15;
                     break;
                 case "TOP":
-                    top += personaje.getRecaudacion();
+                    top += personaje.getRecaudacion()*6.15;
                     break;
                 case "MID":
-                    mid += personaje.getRecaudacion();
+                    mid += personaje.getRecaudacion()*6.15;
                     break;
                 case "JG":
-                    jg += personaje.getRecaudacion();
+                    jg += personaje.getRecaudacion()*6.15;
                     break;
                 default:
                     break;
@@ -325,11 +332,11 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
         }
         
         salida = salida + "Recaudaciones por Rol: ";
-        salida = salida + "\n\tSupport: " + sup*6.15;
-        salida = salida + "\n\tAtack Damage Carry: " + adc*6.15;
-        salida = salida + "\n\tTop Laner: " + top*6.15;
-        salida = salida + "\n\tMiddle Laner: "+ mid*6.15;
-        salida = salida + "\n\tJungler: "+jg*6.15;
+        salida = salida + "\n\tSupport: " + sup;
+        salida = salida + "\n\tAtack Damage Carry: " + adc;
+        salida = salida + "\n\tTop Laner: " + top;
+        salida = salida + "\n\tMiddle Laner: "+ mid;
+        salida = salida + "\n\tJungler: "+jg;
         return salida;
     }
     
@@ -350,22 +357,22 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
             
             switch (region) {
                 case "LAS":
-                    las += cuenta.getRecaudacionCta();
+                    las += cuenta.getRecaudacionCta()*6.15;
                     break;
                 case "LAN":
-                    lan += cuenta.getRecaudacionCta();
+                    lan += cuenta.getRecaudacionCta()*6.15;
                     break;
                 case "EUW":
-                    euw += cuenta.getRecaudacionCta();
+                    euw += cuenta.getRecaudacionCta()*6.15;
                     break;
                 case "KR":
-                    kr += cuenta.getRecaudacionCta();
+                    kr += cuenta.getRecaudacionCta()*6.15;
                     break;
                 case "NA":
-                    na += cuenta.getRecaudacionCta();
+                    na += cuenta.getRecaudacionCta()*6.15;
                     break;
                 case "RU":
-                    ru += cuenta.getRecaudacionCta();
+                    ru += cuenta.getRecaudacionCta()*6.15;
                     break;
                 default:
                     break;
@@ -373,12 +380,12 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
         }
         
         salida = salida + "Recaudaciones por region: ";
-        salida = salida + "\n\tLAS: " + las*6.15;
-        salida = salida + "\n\tLAN: " + lan*6.15;
-        salida = salida + "\n\tEUW: " + euw*6.15;
-        salida = salida + "\n\tKR: "+ kr*6.15;
-        salida = salida + "\n\tNA: "+ na*6.15;
-        salida = salida + "\n\tRU: "+ru*6.15;
+        salida = salida + "\n\tLAS: " + las;
+        salida = salida + "\n\tLAN: " + lan;
+        salida = salida + "\n\tEUW: " + euw;
+        salida = salida + "\n\tKR: "+ kr;
+        salida = salida + "\n\tNA: "+ na;
+        salida = salida + "\n\tRU: "+ru;
         return salida;
     }
     
@@ -442,6 +449,7 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
     
     
     
+    @Override
     public boolean agregarPersonajeAdmin(String nombrePersonaje,String rol,String nombreSkin,String calidadSkin) {
         Personaje personaje = listaPersonajes.buscarPersonaje(nombrePersonaje);
         if(personaje ==null) {
@@ -486,6 +494,7 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
         return false;
     }
     
+    @Override
     public String obtenerSkinsDisponiblesPersonaje(String nombreCuenta, String nombrePersonaje){
         String salida = "";
         
@@ -515,6 +524,22 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
         return salida;
     }
     
-    
+    public String obtenerPersonajesDisponibles (String nombreCuenta){
+        String salida = "";
+        Cuenta cuenta = listaCuentas.buscarCuenta(nombreCuenta);
+        
+        if(cuenta!= null){
+            ListaPersonajes lpc = cuenta.getListaPersojanes();
+            
+            for (int i = 0; i < listaPersonajes.getCantPersonajes(); i++) {
+                Personaje personaje = lpc.getPersonajeI(i);
+                Personaje personajeGen = listaPersonajes.getPersonajeI(i);
+                if(personaje.getNombrePersonaje().equals(personajeGen.getNombrePersonaje())){
+                    salida += "Nombre : "+ personaje.getNombrePersonaje();
+                }
+            }
+        }
+        return salida;
+    }
     
 }
