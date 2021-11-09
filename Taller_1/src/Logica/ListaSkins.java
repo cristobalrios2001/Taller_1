@@ -16,13 +16,22 @@ public class ListaSkins {
         
     }
     public boolean ingresarSkin(Skin skin){
-        if(cantSkins<max){
-            listaSkins[cantSkins] = skin;
-            cantSkins++;
-            return true;
-        }else{
-            return false;
+        
+        boolean existe = false;
+        for (int i = 0; i < cantSkins; i++) {
+            if(listaSkins[i].getNombreSkin().equals(skin.getNombreSkin())){
+                existe = true;
+            }
         }
+        
+        if(existe == false){
+            if(cantSkins<max){
+                listaSkins[cantSkins] = skin;
+                cantSkins++;
+            return true;
+            }
+        }
+        return false;
     }
     
     public Skin buscarSkin (String nombreSkin)

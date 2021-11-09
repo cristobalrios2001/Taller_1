@@ -13,6 +13,7 @@ public class Main {
         SistemaSkinShop sistema =new SistemaSkinShopImpl();
         
         lecturaPersonajes( sistema);        
+        leerEstadisticas( sistema);
         lecturaCuentas( sistema);
         
         
@@ -101,7 +102,7 @@ public class Main {
                         break;
                     case 6:
                         System.out.println("\nHas seleccionado la opción 6: Mostrar Datos de Cuenta.");
-                        System.out.println(sistema.mostrarDatos(nombreCuenta));
+                        obtenerDatosCuenta( sistema, nombreCuenta);
                         break;
                     case 7:
                         System.out.println("\nHas seleccionado la opción 7: Salir.");
@@ -167,6 +168,40 @@ public class Main {
             return true;
         }
         return false;
+    }
+    
+    public static void obtenerDatosCuenta(SistemaSkinShop sistema, String nombreCuenta)
+    {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("\tDATOS CUENTA");
+        System.out.println(sistema.mostrarDatos(nombreCuenta));
+        
+        System.out.println("¿Desea cambiar la contraseña?");
+        String confirmacion = sc.next();
+        
+        while (!confirmacion.equals("Si") && !confirmacion.equals("No")){
+            System.out.println("Opcion incorrecta");
+            System.out.println("¿Desea cambiar la contraseña?");
+            confirmacion = sc.next();
+        }
+        
+        if (confirmacion.equalsIgnoreCase("si")){
+            System.out.println("Ingresar Contraseña antigua: "); String olsPass1 = sc.next();
+            System.out.println("Vuelva a ingresar Contraseña antigua: "); String olsPass2 = sc.next();
+            
+            System.out.println("Ingrese Contraseña nueva: "); String newPass = sc.next();
+            
+            boolean cambio = sistema.cambiarContraseña(nombreCuenta, olsPass1, olsPass2, newPass);
+            
+            if(cambio){
+                System.out.println("Su contraseña ha sido cambiada con exito");
+            }else{
+                System.out.println("Su contraseña no ha podido ser cambiada.");
+            }
+            
+        }else{
+            System.out.println("Opcion NO, Regresando al menu\n");
+        }
     }
     
     public static void menuAdmin(SistemaSkinShop sistema)
@@ -364,13 +399,13 @@ public class Main {
     }
     
     public static void leerEstadisticas(SistemaSkinShop system) throws IOException{
-        System.out.println("Leyendo Estadisticas");
+        
         Scanner s = new Scanner(new File("Estadisticas.txt"));
         while(s.hasNextLine()) {
             String line = s.nextLine();
             String [] partes = line.split(",");
             String nombrePersonaje = partes[0];
-            double recaudacion = (Integer.parseInt(partes[1])*6.15);
+            double recaudacion = (Integer.parseInt(partes[1]));
             try {
                 boolean ingresado = system.asociarEstadistica(nombrePersonaje, recaudacion);
                 if(!ingresado) {

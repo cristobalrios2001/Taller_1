@@ -19,7 +19,7 @@ public class ListaPersonajes {
     {
         boolean existe = false;
         for (int i = 0; i < cantPersonajes; i++) {
-            if(listaPersonajes[i].equals(personaje)){
+            if(listaPersonajes[i].getNombrePersonaje().equals(personaje.getNombrePersonaje())){
                 existe = true;
             }
         }

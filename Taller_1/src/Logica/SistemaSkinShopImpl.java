@@ -18,27 +18,14 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
     @Override
     public boolean agregarPersonaje(String nombre, String rol)
     {
-        boolean ingreso = false;
-        Personaje personaje = listaPersonajes.buscarPersonaje(nombre);
-        if(personaje==null){
-            personaje = new Personaje(nombre,rol);
-            ingreso = listaPersonajes.ingresarPersonaje(personaje);
-        }
-        
-        
-        return ingreso;
+        Personaje personaje = new Personaje(nombre,rol);
+        return listaPersonajes.ingresarPersonaje(personaje);
     }
     
     @Override
     public boolean agregarSkin (String nombre, String calidad)
     {
-        Skin skin = listaSkins.buscarSkin(nombre);
-        if(skin == null){
-            skin = new Skin(nombre,calidad);
-        }else{
-            throw new NullPointerException("Esta skin ya existe");
-        }
-                
+        Skin skin = new Skin(nombre,calidad);
         return listaSkins.ingresarSkin(skin);
     }
     
@@ -48,19 +35,23 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
         
         Personaje personaje = listaPersonajes.buscarPersonaje(nombrePersonaje);
         
-        if(personaje == null){
-           Personaje p = new Personaje(nombrePersonaje, rol);
-           listaPersonajes.ingresarPersonaje(p);
-           
-           Skin skin = listaSkins.buscarSkin(nombreSkin);
-           if (skin == null){
-               Skin sk = new Skin (nombreSkin, calidad);
-               listaSkins.ingresarSkin(sk);
-               p.getListaSkins().ingresarSkin(sk);
-               return true;
-           }
+        if(personaje != null){
+            Skin skin = personaje.getListaSkins().buscarSkin(nombreSkin);
+            if(skin == null){
+                skin = new Skin (nombreSkin,calidad);
+                boolean ingresado = personaje.getListaSkins().ingresarSkin(skin);
+                boolean ingresarSkin = listaSkins.ingresarSkin(skin);
+                if(ingresado && ingresarSkin){
+                    return true;
+                }else{
+                    return false;
+                }
+            }else{
+                throw new NullPointerException ("No se ha encontrado la skin : "+skin.getNombreSkin());
+            }
+        }else{
+            throw new NullPointerException("No se ha encontrado la skin : "+personaje.getNombrePersonaje());
         }
-        return false;
     }
     
     @Override
@@ -106,15 +97,22 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
     public boolean asociarPersonajeCuenta(String nickCuenta, String nombrePersonaje)
     {
         Cuenta cuenta = listaCuentas.buscarCuenta(nickCuenta);
-        Personaje personaje = listaPersonajes.buscarPersonaje(nombrePersonaje);
-        boolean ingreso = false;
-        if(cuenta != null || personaje != null)
-        {
-            ingreso = cuenta.getListaPersojanes().ingresarPersonaje(personaje);
+        
+        if(cuenta != null){
+            Personaje personaje = listaPersonajes.buscarPersonaje(nombrePersonaje);
+            if(personaje!= null){
+                boolean ingresar = cuenta.getListaPersojanes().ingresarPersonaje(personaje);
+                if(ingresar){
+                    return true;
+                }else{
+                    return false;
+                }
+            }else{
+                throw new NullPointerException("El personaje no existe");
+            }
         }else{
-            throw new NullPointerException ("No existe Cuenta y/o personaje");
+            throw new NullPointerException("La cuenta no existe");
         }
-        return ingreso;
     }
     
     @Override
@@ -588,6 +586,7 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
         
     }
     
+    @Override
     public boolean contraseñaCorrecta(String nombreCuenta,String contraseña){
         Cuenta cuenta = listaCuentas.buscarCuenta(nombreCuenta);
         if(cuenta != null){
@@ -601,6 +600,7 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
         }
     }
 
+    @Override
     public boolean asignarRegion (String nombreCUenta, String region){
         Cuenta cuenta = listaCuentas.buscarCuenta(nombreCUenta);
         if(cuenta!= null){

@@ -1,0 +1,3 @@
+Omen,ADC,2,forajido,N,Oscuridad Cosmica,L
+Jett,TOP,2,Sett Puño del dragón,E,Portadora del amanecer,E
+Lillia,JG,1,Lillia flor espiritual,E
