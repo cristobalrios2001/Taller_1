@@ -403,6 +403,50 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
     }
     
     @Override
+    public String obtenerCantPersonajesRol(){
+        String salida = "";
+        double sup = 0;
+        double adc = 0;
+        double top = 0;
+        double mid = 0;
+        double jg = 0;
+        
+        for (int i = 0; i < listaPersonajes.getCantPersonajes(); i++) {
+            Personaje personaje = listaPersonajes.getPersonajeI(i);
+            String rol =personaje.getRol();
+            
+            switch (rol) {
+                case "SUP":
+                    sup += 1;
+                    break;
+                case "ADC":
+                    adc += 1;
+                    break;
+                case "TOP":
+                    top += 1;
+                    break;
+                case "MID":
+                    mid += 1;
+                    break;
+                case "JG":
+                    jg += 1;
+                    break;
+                default:
+                    break;
+            }
+        }
+        
+        salida = salida + "Cantidad de personajes por Rol: ";
+        salida = salida + "\n\tSupport: " + sup;
+        salida = salida + "\n\tAtack Damage Carry: " + adc;
+        salida = salida + "\n\tTop Laner: " + top;
+        salida = salida + "\n\tMiddle Laner: "+ mid;
+        salida = salida + "\n\tJungler: "+jg;
+        return salida;
+        
+    }
+    
+    @Override
     public boolean bloquearCuenta(String nombreCuenta)
     {
         Cuenta cuenta = listaCuentas.buscarCuenta(nombreCuenta);
@@ -481,19 +525,7 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
     }
 
     
-    @Override
-    public boolean iniciarSesionComprobar(String nombreCuenta, String contraseña){
-        
-        Cuenta cuenta = listaCuentas.buscarCuenta(nombreCuenta);
-        if(cuenta != null){
-            if(cuenta.getContraseña().equals(contraseña)){
-                return true;
-            }
-        }else{
-            throw new NullPointerException ("La cuenta no existe");
-        }
-        return false;
-    }
+    
     
     @Override
     public String obtenerSkinsDisponiblesPersonaje(String nombreCuenta, String nombrePersonaje){
@@ -544,4 +576,39 @@ public class SistemaSkinShopImpl implements SistemaSkinShop {
         return salida;
     }
     
+    @Override
+    public boolean existeCliente (String nombreCuenta){
+        Cuenta cuenta = listaCuentas.buscarCuenta(nombreCuenta);
+        
+        if(cuenta == null){
+            return false;
+        }else{
+            return true;
+        }
+        
+    }
+    
+    public boolean contraseñaCorrecta(String nombreCuenta,String contraseña){
+        Cuenta cuenta = listaCuentas.buscarCuenta(nombreCuenta);
+        if(cuenta != null){
+            if(cuenta.getContraseña().equals(contraseña)){
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            throw new NullPointerException("Cuanta no encontrada/ no existe");
+        }
+    }
+
+    public boolean asignarRegion (String nombreCUenta, String region){
+        Cuenta cuenta = listaCuentas.buscarCuenta(nombreCUenta);
+        if(cuenta!= null){
+            cuenta.setRegion(region);
+            return true;
+        }else{
+            throw new NullPointerException("Cuenta no existe");
+        }
+        
+    }
 }

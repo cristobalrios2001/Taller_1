@@ -8,11 +8,16 @@ import java.io.IOException;
 public class Main {
 
     
-    public static void main(String[] args) {
-        Scanner sc = new Scanner (System.in);
+    public static void main(String[] args) throws IOException {
+       
         SistemaSkinShop sistema =new SistemaSkinShopImpl();
         
+        lecturaPersonajes( sistema);        
+        lecturaCuentas( sistema);
         
+        
+        
+        sistema ( sistema);
         
         
         
@@ -20,38 +25,7 @@ public class Main {
     
     
     
-     public static void verificarRut(SistemaSkinShop sistema){
-        Scanner sn = new Scanner(System.in);
-        System.out.println("Ingresar usuario: ");
-        String nombreCuenta = sn.next();
-
-        System.out.println("Ingresar Contraseña: ");
-        String contraseña = sn.next();
-        
-        
-        
-        if(nombreCuenta.equals("ADMIN") && contraseña.equals("ADMIN")){
-            menuAdmin(sistema); // es admin
-        }
-        else{
-            try{
-                boolean verificar = false;
-                verificar = sistema.iniciarSesionComprobar(nombreCuenta, contraseña);
-                if (verificar == true){
-                    menuCliente(sistema, nombreCuenta);
-                }else{
-                    System.out.println("No existe la cuenta, ¿Desea crear una cuenta? (Si / No)");
-                    String opcionCrear= sn.next();
-                    if(opcionCrear.equalsIgnoreCase("Si")){
-                        
-                    }
-                }
-            }catch(Exception ex){
-                System.out.println(ex.getMessage());
-            }
-        }
-        
-    }
+     
     
     
     
@@ -68,7 +42,7 @@ public class Main {
                 switch (opcion) {
                     case 1:
                         System.out.println("Has seleccionado la opción 1: Iniciar Sesión");
-                        
+                         inicioSesion( sistema);
                         break;
                     
                     case 2:
@@ -197,10 +171,7 @@ public class Main {
     
     public static void menuAdmin(SistemaSkinShop sistema)
     {   Scanner sc = new Scanner(System.in);
-        //recaudacionRol();
-        //recaudacionPorRegion();
-        //recaudacionPorPersonaje();
-        //cantidadDePersonajesPorRol();
+        
         boolean salir = false;
         int opcion;
         do{
@@ -213,24 +184,40 @@ public class Main {
                 System.out.print("Escribe una de las opciones: ");
                 opcion = sc.nextInt();
                 switch (opcion){
-                    case 1:
-                        System.out.println("\nHas seleccionado la opción 1:  Agregar personaje.");
+                   case 1:
+                        System.out.println("\nHas seleccionado la opción 1:  Recaudación de ventas por rol.");
+                        System.out.println(sistema.recaudacionPorRol());
+                        break;   
+                    case 2:
+                        System.out.println("\nHas seleccionado la opción 2: Recaudación total de ventas por región.");
+                        System.out.println(sistema.recaudacionPorRegion());
+                        break;   
+                    case 3:
+                        System.out.println("\nHas seleccionado la opción 3:  Recaudación de ventas por personaje.");
+                        System.out.println(sistema.recaudacionPorPersonaje());
+                        break;   
+                    case 4:
+                        System.out.println("\nHas seleccionado la opción 4:  Cantidad de personajes por rol.");
+                        System.out.println(sistema.obtenerCantPersonajesRol());
+                        break;       
+                    case 5:
+                        System.out.println("\nHas seleccionado la opción 5:  Agregar personaje.");
                         agregarPersonaje(sistema);
                         break;    
-                    case 2:
-                        System.out.println("\nHas seleccionado la opción 2:  Agregar Skin.");
+                    case 6:
+                        System.out.println("\nHas seleccionado la opción 6:  Agregar Skin.");
                         agregarSkin(sistema);
                         break;
-                    case 3:
-                        System.out.println("\nHas seleccionado la opción 3:  Bloquear un Jugador.");
+                    case 7:
+                        System.out.println("\nHas seleccionado la opción 7:  Bloquear un Jugador.");
                         bloquearJugador(sistema);
                         break;
-                    case 4:
-                        System.out.println("\nHas seleccionado la opción 4: Salir.");
+                    case 8:
+                        System.out.println("\nHas seleccionado la opción 8: Salir.");
                         salir = true;
                         break;
                     default:
-                        System.out.println("\nSolo números entre 1 y 4");
+                        System.out.println("\nSolo números entre 1 y 8");
                }    
     
             }catch(InputMismatchException e){
@@ -239,7 +226,7 @@ public class Main {
             }
         }
         while(!salir);
-        //desplegarCuentasNivel();
+        
     }
     
     public static void agregarPersonaje(SistemaSkinShop sistema){
@@ -296,65 +283,165 @@ public class Main {
         }
     }
     
-    public static void lecturaArchivo(SistemaSkinShop sistema)throws IOException{        
-        Scanner s = new Scanner(new File("Personajes.txt"));
+    public static void lecturaPersonajes(SistemaSkinShop system)throws IOException{
+       System.out.println("Leyendo cuentas");
+       Scanner s = new Scanner(new File("Personajes.txt"));
+       while(s.hasNextLine()) {
+           String line = s.nextLine();
+           String [] partes = line.split(",");
+           String nombrePersonaje = partes[0];
+           String rol = partes[1];
+           try {
+               boolean ingreso = system.agregarPersonaje(nombrePersonaje, rol);
+               if(ingreso) {
+                   int cantSkins = Integer.parseInt(partes[2]);
+                   int cont = 3;
+                   for(int i=0;i<cantSkins;i++) {
+                       String nombreSkin = partes[cont];
+                       String calidadSkin = partes[cont+1];
+                       cont+=2;
+                       try {
+                           boolean ingresoAsocia = system.asociarPersonajeSkin(nombrePersonaje, rol, nombreSkin, calidadSkin);
+                           if(!ingresoAsocia) {
+                               System.out.println("No se puede ingresar las skin a la cuenta por que no queda espacio");
+                           }
+                       }catch(Exception ex) {
+                           System.out.println("\t"+ex.getMessage());
+                       }
+                   }
+
+               }
+           }catch (Exception ex) {
+               System.out.println("\t"+ex.getMessage());
+           }
+       }
+    }
+    
+    
+    public static void lecturaCuentas(SistemaSkinShop system) throws IOException{
+        System.out.println("Leyendo personajes");
+        Scanner s = new Scanner(new File("Cuentas.txt"));
+        while(s.hasNextLine()) {
+            String line = s.nextLine();
+            String [] partes = line.split(",");
+            String nombreCuenta = partes[0];
+            String contraseña = partes[1];
+            String nick = partes[2];
+            int nivelCuenta = Integer.parseInt(partes[3]);
+            int rpCuenta = Integer.parseInt(partes[4]);
+            try {
+                boolean ingresado = system.agregarCuenta(nombreCuenta, contraseña, nick, nivelCuenta, rpCuenta, nick);
+                if(ingresado) {
+                    int cantPersonajes = Integer.parseInt(partes[5]);
+                    int avance = 6;
+                    int acumu = 8;
+                    for(int i=0;i<cantPersonajes;i++) {
+                        String nombrePersonaje = partes[avance];
+                        int cantSkins = Integer.parseInt(partes[avance+1]);
+                        for(int j=0;j<cantSkins;j++) {
+                            String nombreSkin = partes[acumu];    
+                            acumu++;
+                        }
+                        avance = acumu;
+                        acumu+=2;
+                        try {
+                            boolean ingresoAsociar = system.asociarPersonajeCuenta(nombreCuenta, nombrePersonaje);
+                            if(!ingresoAsociar) {
+                                System.out.println("El personaje no se pudo ingresar a la cuenta por que no queda espacio");
+                            }
+                        }catch(Exception ex) {
+                            System.out.println(ex.getMessage());
+                        }
+                    }
+                    String region = partes[avance];
+                    system.asignarRegion(nombreCuenta, region);
+                }
+            }catch(Exception ex) {
+                System.out.println(ex.getMessage());
+            }
+            
+        }
+    }
+    
+    public static void leerEstadisticas(SistemaSkinShop system) throws IOException{
+        System.out.println("Leyendo Estadisticas");
+        Scanner s = new Scanner(new File("Estadisticas.txt"));
         while(s.hasNextLine()) {
             String line = s.nextLine();
             String [] partes = line.split(",");
             String nombrePersonaje = partes[0];
-            String rol = partes[1];
+            double recaudacion = (Integer.parseInt(partes[1])*6.15);
             try {
-                boolean ingreso = sistema.agregarPersonaje(nombrePersonaje, rol);
-                if(ingreso) {
-                    int cantSkins = Integer.parseInt(partes[2]);
-                    int cont = 3;
-                    for(int i=0;i<cantSkins;i++) {
-                        String nombreSkin = partes[cont];
-                        String calidad = partes[cont+1];
-                        cont+=2;
-                        try {
-                            boolean ingresoAsocia = sistema.asociarPersonajeSkin( nombrePersonaje,  rol ,  nombreSkin,  calidad);
-                            if(!ingresoAsocia) {
-                                System.out.println("No se puede ingresar las skin a la cuenta por que no queda espacio disponible");
-                            }
-                        }catch(Exception ex) {
-                            System.out.println("\t"+ex.getMessage());
-                        }
-                    }
-                    
+                boolean ingresado = system.asociarEstadistica(nombrePersonaje, recaudacion);
+                if(!ingresado) {
+                    System.out.println("No se pudo ingresar la estadística por que no hay más espacio");
                 }
-            }catch (Exception ex) {
+            }catch(Exception ex) {
                 System.out.println("\t"+ex.getMessage());
             }
         }
     }
     
     
-    public static void lecturaCuentas(SistemaSkinShopImpl sistrema) throws IOException
-    {
-        Scanner sc = new Scanner (new File("Cuentas.txt"));
-        while(sc.hasNextLine()){
-            String [] partes = sc.nextLine().split(",");
-            for (int i = 6; i < partes.length-2 ; i++) {
-                String nombreCampeon = partes[i];
-                
-                int cantSkins = Integer.parseInt(partes[i+1]);
-                for (int j = i+2; j < (i+2)+cantSkins; j++) {
-                    String nombreSkin = partes[j];
-                    
-                }
-                i += cantSkins+1;
+    
+    
+    public static boolean inicioSesion(SistemaSkinShop system) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Ingrese el Nombre de la Cuenta: ");String nombreCuenta=sc.nextLine();
+        if(nombreCuenta.equals("ADMIN")) {
+            System.out.print("Ingrese la contraseña: ");String contraseña=sc.nextLine();
+            if(contraseña.equals("ADMIN")) {
+                menuAdmin(system);
+                return true;
+            }
+            else {
+        System.out.println("Contraseña incorrecta...");
+                return false;
             }
         }
-    
-    }
-    
-    
-    /*
-    public static void lecturaArchivo3(SistemaSkinShopImpl sistema) throws IOException
-        Scanner sc = new Scanner (new File("Estadisticas.txt"))
-        while(sc.hasNextLine()){
-        
+        else {
+            boolean existeElCliente = system.existeCliente(nombreCuenta);
+            if(existeElCliente) {
+                System.out.print("Ingrese la contraseña: ");String contraseña = sc.nextLine();
+                boolean contraCorrecta= system.contraseñaCorrecta(nombreCuenta,contraseña);
+                if(contraCorrecta) {
+                    menuCliente(system,nombreCuenta);
+                    return true;
+                }
+                else {
+                    System.out.println("Contraseña incorrecta...");
+                    return false;
+                }
+            }
+            else {
+                System.out.print("Desea registrarlo como un nuevo usuario(si-no): ");String respuesta = sc.nextLine();
+                while(!respuesta.equalsIgnoreCase("si") && !respuesta.equalsIgnoreCase("no")) {
+                    System.out.println("Ingrese (si) o (no) por favor...");
+                    System.out.print("Desea registrarlo como un nuevo usuario(si-no): ");respuesta = sc.nextLine();
+                }
+                if(respuesta.equalsIgnoreCase("si")) {
+                    System.out.println("Nombre Cuenta: "+nombreCuenta);
+                    System.out.print("Contraseña: ");String contraseña = sc.nextLine();
+                    System.out.print("Nick: ");String nick = sc.nextLine();
+                    System.out.print("Region: ");String region = sc.nextLine();
+                    System.out.print("Nivel y Rp iniciados en 0");
+                    int nivel=0;
+                    int rp = 0;
+                    sc.nextLine();
+                    boolean ingresado = system.agregarCuenta( nombreCuenta,  contraseña,  nick, nivel,  rp,  region);
+                    if(ingresado) {
+                        System.out.println("Cliente ingresado");
+                    }
+                    else {
+                        System.out.println("Error al ingresar el cliente(No queda espacio en la lista de Clientes)");
+                    }
+                    return false;
+                }
+                else {
+                    System.out.println("Este usuario no existe...");
+                    return false;
+                }
+            }
         }
-    */
+    }
 }

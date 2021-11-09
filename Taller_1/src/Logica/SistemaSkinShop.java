@@ -231,14 +231,7 @@ public interface SistemaSkinShop {
      */
     public boolean asociarEstadistica(String nombrePersonje, double recaudacion); 
     
-    /**
-     * Check if the account and password are correct
-     * @param nombreCuenta account name
-     * @param contraseña password associated with the account
-     * @return returns the result of the session start
-     */
-    public boolean iniciarSesionComprobar(String nombreCuenta, String contraseña);
-    
+   
     /**
      * you get the available skins of a character
      * pre:
@@ -257,5 +250,40 @@ public interface SistemaSkinShop {
      * @return return a Striung with de charachters avaibles
      */
     public String obtenerPersonajesDisponibles (String nombreCuenta);
+    
+    
+     /**
+     * Get the amount of character by role
+     * pre:
+     *      that exist  least one character
+     *
+     * @return return a String with the amount of character
+     */
+    public String obtenerCantPersonajesRol();
+    
+    /**
+     * Check if the account exists
+     * @param nombreCuenta account name     
+     * @return returns the result of the session start
+     */
+    public boolean existeCliente (String nombreCuenta);
+    
+    /**
+     * Check if the account and password are correct
+     * @param nombreCuenta account name
+     * @param contraseña password associated with the account
+     * @return returns the result of the session start
+     */
+    public boolean contraseñaCorrecta(String nombreCuenta,String contraseña);
+    
+    /**
+     * A region will be assigned to the account
+     * @param nombreCuenta account name
+     * @param region region which will be assigned
+     *  pre:
+     *      the account must exist
+     * @return region assigned to the account
+     */
+    public boolean asignarRegion (String nombreCuenta, String region);
     
 }
